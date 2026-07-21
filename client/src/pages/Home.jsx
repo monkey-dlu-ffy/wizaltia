@@ -262,7 +262,7 @@ export default function Home() {
                   <FiUsers size={32} />
                 </div>
                 <div className="who-pillar-body">
-                  <p className="who-pillar-eyebrow">Vertical 01</p>
+                  
                   <h3 className="who-pillar-title">Wizaltia<br />HR Solutions</h3>
                   <p className="who-pillar-desc">
                     General Staffing · Permanent Recruitment · HR Outsourcing & RPO · Payroll & Compliance
@@ -282,7 +282,7 @@ export default function Home() {
                   <FiBook size={32} />
                 </div>
                 <div className="who-pillar-body">
-                  <p className="who-pillar-eyebrow" style={{ color: '#a78bfa' }}>Vertical 02</p>
+                  
                   <h3 className="who-pillar-title">Wizaltia<br />Learning Solutions</h3>
                   <p className="who-pillar-desc">
                     React · Svelte · Node.js · Prompt Engineering · Vibe Coding · Sales & Marketing
