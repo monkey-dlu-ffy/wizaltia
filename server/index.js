@@ -21,6 +21,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'https://www.wizaltia.com',
+  'https://www.wizaltia.vercel.app',
   'https://wizaltia.com',
   ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : []),
 ];
@@ -65,5 +66,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Wizaltia server running on http://localhost:${PORT}`);
+  console.log(`Wizaltia server running on port ${PORT}`);
 });
