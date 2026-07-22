@@ -129,7 +129,7 @@ router.post('/', contactLimiter, validateContact, async (req, res) => {
       message: 'Your enquiry has been sent successfully. We\'ll be in touch within 24 hours.'
     });
   } catch (err) {
-    console.error('[Contact Route Error]', err);
+    console.error('[Contact Route Error] SMTP failed:', err.message, '| code:', err.code, '| response:', err.response);
     return res.status(500).json({
       success: false,
       message: 'Unable to send your enquiry right now. Please try emailing us directly at info@wizaltia.com'

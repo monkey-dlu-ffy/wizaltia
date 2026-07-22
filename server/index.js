@@ -51,6 +51,11 @@ app.use('/api', globalLimiter);
 app.use('/api/contact', contactRouter);
 app.use('/api/learning', learningRouter);
 
+/* ── Root ── */
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Wizaltia API server is running. Visit https://wizaltia.com for the website.' });
+});
+
 /* ── Health Check ── */
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
