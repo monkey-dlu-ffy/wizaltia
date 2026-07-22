@@ -6,9 +6,6 @@ import {
 } from 'react-icons/fi';
 import './LearningSolutions.css';
 
-// Use absolute backend URL in production to avoid ad blocker blocks on relative /api/* paths
-const API_BASE = import.meta.env.VITE_API_URL || '';
-
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.55, delay: d, ease: [0.25, 0.1, 0.25, 1] } })
@@ -110,7 +107,7 @@ function LearningForm() {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 20000);
     try {
-      const res = await fetch(`${API_BASE}/api/learning`, {
+      const res = await fetch('/api/learning', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

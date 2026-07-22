@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://wizaltia-server.onrender.com/api/$1"
-    },
-    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
