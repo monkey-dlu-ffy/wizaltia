@@ -20,9 +20,11 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://www.wizaltia.com',
-  'https://www.wizaltia.vercel.app',
   'https://wizaltia.com',
+  'https://www.wizaltia.com',
+  // Vercel deployments (main + preview)
+  'https://wizaltia.vercel.app',
+  'https://www.wizaltia.vercel.app',
   ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : []),
 ];
 app.use(cors({

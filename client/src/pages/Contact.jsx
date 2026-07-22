@@ -6,6 +6,9 @@ import {
 } from 'react-icons/fi';
 import './Contact.css';
 
+// Use absolute backend URL in production to avoid ad blocker blocks on relative /api/* paths
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: d, ease: 'easeOut' } })
@@ -27,7 +30,7 @@ function HRForm() {
     setStatus('loading');
     setErrorMsg('');
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -279,7 +282,7 @@ function LearningFormInline() {
     setStatus('loading');
     setErrorMsg('');
     try {
-      const res = await fetch('/api/learning', {
+      const res = await fetch(`${API_BASE}/api/learning`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
