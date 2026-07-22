@@ -107,12 +107,16 @@ function LearningForm() {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
     try {
       const res = await fetch(`${API_BASE}/api/learning`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
+        signal: controller.signal,
       });
+      clearTimeout(timer);
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
@@ -121,9 +125,14 @@ function LearningForm() {
         setStatus('error');
         setErrorMsg(data.message || 'Something went wrong. Please try again.');
       }
-    } catch {
+    } catch (err) {
+      clearTimeout(timer);
       setStatus('error');
-      setErrorMsg('Unable to connect. Please try again or email us directly.');
+      if (err.name === 'AbortError') {
+        setErrorMsg('Request timed out. The server is taking too long — please try again.');
+      } else {
+        setErrorMsg('Unable to connect. Please try again or email us directly.');
+      }
     }
   };
 

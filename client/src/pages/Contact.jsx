@@ -29,12 +29,16 @@ function HRForm() {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
     try {
       const res = await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
+        signal: controller.signal,
       });
+      clearTimeout(timer);
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
@@ -43,9 +47,14 @@ function HRForm() {
         setStatus('error');
         setErrorMsg(data.message || 'Something went wrong. Please try again.');
       }
-    } catch {
+    } catch (err) {
+      clearTimeout(timer);
       setStatus('error');
-      setErrorMsg('Unable to connect to the server. Please try again later.');
+      if (err.name === 'AbortError') {
+        setErrorMsg('Request timed out. The server is taking too long — please try again.');
+      } else {
+        setErrorMsg('Unable to connect to the server. Please try again later.');
+      }
     }
   };
 
@@ -281,12 +290,16 @@ function LearningFormInline() {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
     try {
       const res = await fetch(`${API_BASE}/api/learning`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
+        signal: controller.signal,
       });
+      clearTimeout(timer);
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
@@ -295,9 +308,14 @@ function LearningFormInline() {
         setStatus('error');
         setErrorMsg(data.message || 'Something went wrong. Please try again.');
       }
-    } catch {
+    } catch (err) {
+      clearTimeout(timer);
       setStatus('error');
-      setErrorMsg('Unable to connect. Please try again later.');
+      if (err.name === 'AbortError') {
+        setErrorMsg('Request timed out. The server is taking too long — please try again.');
+      } else {
+        setErrorMsg('Unable to connect. Please try again later.');
+      }
     }
   };
 
